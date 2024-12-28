@@ -1,0 +1,163 @@
+@if (_ready) {
+
+  <div class="bg-primary text-center" style="padding: 4px; z-index: 6">
+    <div class="d-flex justify-content-end align-items-end">
+<!--      <app-search-product></app-search-product>-->
+      <app-language-selector></app-language-selector>
+    </div>
+<!--    <hr style="padding: 0; margin: 0;">-->
+  </div>
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-light py-2 sticky-top" style="z-index: 1!important;">
+    <div class="container-fluid">
+      <span class="navbar-nav">
+          <button class="xitrobutton"
+                  data-bs-toggle="offcanvas"
+                  data-bs-target="#offcanvasKEshop"
+                  aria-controls="offcanvasKEshop">
+            <span class="header-title"><b>aQ</b></span>
+          </button>
+    </span>
+
+      <span class="navbar-nav" ><app-search-product></app-search-product></span>
+      <!-- Right-aligned items -->
+<!--      <span class="nav-link ms-auto align-self-center"><app-language-selector></app-language-selector></span>-->
+<!--      &nbsp;&nbsp;&nbsp;-->
+      <span class="nav-link align-self-center"><app-cart></app-cart></span>
+    </div>
+  </nav>
+
+
+  <!-- ===================================================================================== -->
+  <!-- ===================================================================================== -->
+  <!-- ------------------ LEFT SIDE -------------------------------------------------------- -->
+  <!-- ===================================================================================== -->
+  <!-- ===================================================================================== -->
+
+  <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasKEshop" aria-labelledby="offcanvasExampleLabel">
+    <div class="offcanvas-header">
+      <h4 class="offcanvas-title header-title-left" id="offcanvasExampleLabel">Antiq Interior</h4>
+      <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body">
+      <div>
+
+        <!--            <a routerLink="about" class ="nav-link active" aria-current="page" data-bs-dismiss="offcanvas"><span>About us</span></a>-->
+        <a routerLink="about" class ="nav-link active" aria-current="page" data-bs-dismiss="offcanvas"><span>
+              {{uiElementService.uiElements.at(172)}}
+            </span></a>
+
+        <!--            <a routerLink="contact" class ="nav-link active" aria-current="page" data-bs-dismiss="offcanvas"><span>Contact</span></a>-->
+        <a routerLink="contact" class ="nav-link active" aria-current="page" data-bs-dismiss="offcanvas"><span>
+              {{uiElementService.uiElements.at(170)}}
+            </span></a>
+
+        <!--            <a routerLink="contact" class ="nav-link active" aria-current="page" data-bs-dismiss="offcanvas"><span>How it works</span></a>-->
+        <a routerLink="shopping" class ="nav-link active" aria-current="page" data-bs-dismiss="offcanvas"><span>
+              {{uiElementService.uiElements.at(201)}}
+            </span></a>
+
+        <p></p>
+
+        <hr>
+
+        <p>
+
+<!--            <a routerLink="product/explore" class ="nav-link active" aria-current="page" data-bs-dismiss="offcanvas"><span>All items</span></a>-->
+            <a routerLink="product/explore"
+               class ="nav-link active" aria-current="page" data-bs-dismiss="offcanvas"
+               (click)="productService.searchString = ''">
+              <li><span>{{uiElementService.uiElements.at(197)}}</span></li>
+            </a>
+
+        </p>
+
+        <hr>
+
+<!--        <span>Our main categories:</span>-->
+        <span>{{uiElementService.uiElements.at(200)}}:</span>
+
+        <p></p>
+
+        <div class="divWithScrollbar">
+          @if (root) {
+            <ng-container *ngFor="let subcategory of root.subcategories">
+              @if(subcategory.active){
+                <ng-container *ngFor="let titleDescriptor of subcategory.titleDescriptors">
+                  @if (titleDescriptor.language.languageId === currentLanguageService.currentLanguage.languageId) {
+                    <!--                    <li (click)="goToCategory(subcategory.categoryId)" style="cursor: pointer;">{{ titleDescriptor.value }}</li>-->
+
+                    <a routerLink="product/explore/?categoryId={{subcategory.categoryId}}"
+                       class ="nav-link active" aria-current="page" data-bs-dismiss="offcanvas"
+                       (click)="productService.searchString = ''">
+                      <li><span>{{ titleDescriptor.value }}</span></li>
+                    </a>
+
+                  }
+                </ng-container>
+              }
+            </ng-container>
+          }
+        </div>
+
+        <hr>
+        <p></p>
+        <p></p>
+
+        <div class="text-center">
+        <span class="nav-link align-self-center bg-primary"
+              style="margin-top: 50px; max-width: 60px; border-radius: 5px;">
+          <app-language-selector></app-language-selector>
+        </span>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================================================================  -->
+  <!-- ========================================================================================  -->
+  <!-- ======== MAIN =========================================================================== -->
+  <!-- ========================================================================================  -->
+  <!-- ========================================================================================  -->
+
+  <main>
+    <div class="wrapper">
+      <div class="main">
+        <router-outlet></router-outlet>
+      </div>
+    </div>
+  </main>
+
+  <!-- ========================================================================================  -->
+  <!-- ========================================================================================  -->
+  <!-- ======== FOOTER ========================================================================= -->
+  <!-- ========================================================================================  -->
+  <!-- ========================================================================================  -->
+  <footer class="footer mt-auto py-0">
+    <hr>
+    <div class="container text-center" style="padding-top: 0px; padding-bottom: 15px; font-size: small;  ">
+      <span class="header-title-left" style="font-size: small">Antiq Interior</span>
+      <br>
+      <span class="text-muted"> kalba multilingual engine | web-shop mk2</span><br>
+      <span class="text-muted"> test mode, built {{ environment.builtVersion }}</span>
+      <br>
+    </div>
+  </footer>
+
+  <!-- ===================  -->
+} @else {
+  <!-- SPINNER "LOADING" -->
+  <div class="d-flex justify-content-center align-items-center text-primary" style="height: 100vh;">
+    <div class="text-center">
+      <div class="d-flex align-items-center">
+<!--        Loading...&nbsp;&nbsp;-->
+        {{uiElementService.uiElements.at(194)}}...&nbsp;&nbsp;
+        <div class="spinner-border ml-auto" role="status" aria-hidden="true"></div>
+      </div>
+    </div>
+  </div>
+}
+
+
+

@@ -1,0 +1,50 @@
+<div class="card small-product-card-main">
+<!--  <img src="{{noImageUrl}}" class="card-img-top" alt="...">-->
+
+
+  <app-image-small style="width: fit-content;" [images]="product.images" (click)="goToProductInfo()"></app-image-small>
+
+
+
+  <div class="card-body small-product-card-body">
+    <h5 class="card-title" (click)="goToProductInfo()">
+      <ng-container *ngFor="let titleDescriptor of product.titleDescriptors">
+          @if (titleDescriptor.language.languageId === currentLanguageService.currentLanguage.languageId) {
+            {{ titleDescriptor.value }}
+        }
+      </ng-container>
+    </h5>
+    <p class="card-text" (click)="goToProductInfo()">
+      <ng-container *ngFor="let briefDescriptor of product.briefDescriptors">
+        @if (briefDescriptor.language.languageId === currentLanguageService.currentLanguage.languageId) {
+          {{ briefDescriptor.value }}
+        }
+      </ng-container>
+    </p>
+    <h5>{{ product.offerPrice | currency:'EUR' }}</h5>
+
+    @if(!cartService.cart.isInterestLetterSent) {
+
+      @if (!product.isAddedToCart) {
+
+<!--        <button class="btn btn-sm btn-primary" (click)="addToWishes()">Add to wishes</button>-->
+        <button class="btn btn-sm btn-primary" (click)="addToWishes()">
+
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-bag-plus" viewBox="0 0 16 16">
+          <path fill-rule="evenodd" d="M8 7.5a.5.5 0 0 1 .5.5v1.5H10a.5.5 0 0 1 0 1H8.5V12a.5.5 0 0 1-1 0v-1.5H6a.5.5 0 0 1 0-1h1.5V8a.5.5 0 0 1 .5-.5"/>
+          <path d="M8 1a2.5 2.5 0 0 1 2.5 2.5V4h-5v-.5A2.5 2.5 0 0 1 8 1m3.5 3v-.5a3.5 3.5 0 1 0-7 0V4H1v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V4zM2 5h12v9a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1z"/>
+        </svg>
+        {{ui.uiElements.at(202)}}
+
+
+      </button>
+
+      } @else {
+<!--        <span class="text-primary">Added to list</span>-->
+        <span class="text-primary">{{ui.uiElements.at(203)}}</span>
+      }
+
+    }
+
+  </div>
+</div>

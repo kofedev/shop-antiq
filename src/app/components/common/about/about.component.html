@@ -1,0 +1,16 @@
+<div style="margin-top: 20px;" class="container">
+
+  <strong>{{ui.uiElements.at(172)}}</strong>
+
+  <p></p>
+
+  @if(uiBigElement) {
+    <ng-container *ngFor="let descriptor of uiBigElement.descriptors">
+      @if (descriptor.language.languageId === currLangService.currentLanguage.languageId) {
+        <span [innerHTML]="descriptor.value | sanitizeHtml"></span>
+      }
+    </ng-container>
+  }
+
+</div>
+

@@ -1,0 +1,55 @@
+/* On larger screens // 769 */
+@media (min-width: 420px) {
+
+      .pagination-page-point {
+        visibility: visible;
+      }
+
+      .margin-main-area {
+        margin-left: 10px;
+        margin-right: 10px;
+      }
+}
+
+/* On screens smaller than 769px (smartphones) */
+@media (max-width: 419px) {
+
+      .pagination-page-point {
+        visibility: hidden;
+       }
+
+      .margin-main-area {
+        margin-left: 10px;
+        margin-right: 10px;
+      }
+}
+
+.overflow-hidden {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.scrollable-div {
+  overflow-y: auto; /* Enables vertical scrollbar when content overflows vertically */
+  overflow-x: hidden; /* Hides horizontal scrollbar */
+  max-width: 300px; /* Optional: Set a maximum width for the container */
+  max-height: 150px; /* Optional: Set a maximum height for the container */
+  //height: 150px; /* Optional: Set a maximum height for the container */
+  border: 0px solid #ccc; /* Optional: Add a border for better visibility */
+}
+
+.category-border {
+  border-width: 1px;
+  border-color: #DEE2E6;
+}
+
+.input-min-price {
+  border-radius: 10px;
+}
+
+.enter-button {
+  background: white;
+  border-color: #DEE2E6 !important;
+  border-radius: 0 10px 10px 0!important;
+}

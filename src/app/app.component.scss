@@ -1,0 +1,26 @@
+main {
+  min-height: calc(100vh - 74px - 135px);
+}
+
+.divWithScrollbar {
+  overflow-y: auto; /* or overflow-y: scroll; */
+  //max-height: 500px; /* Optional: Set a maximum height for the div if needed */
+  max-height: calc(100vh - 300px);;
+}
+
+/* On larger screens // 769 */
+@media (min-width: 420px) {
+  .header-responsive-font-size {
+    font-size: xx-large;
+    color: #dcdcdc;
+  }
+}
+
+/* On screens smaller than 769px (smartphones) */
+@media (max-width: 419px) {
+  .header-responsive-font-size {
+    font-size: x-large;
+    color: #dcdcdc;
+  }
+}
+

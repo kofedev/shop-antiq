@@ -1,0 +1,64 @@
+@if (product) {
+<div class="margin-main-area" style="margin-top: 10px;">
+
+  <!-- **** RETURN BUTTON **** -->
+  <button class="btn btn-sm btn-outline-secondary" type="button" (click)="returnToList()">
+    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-arrow-bar-left" viewBox="0 0 16 16">
+      <path fill-rule="evenodd" d="M12.5 15a.5.5 0 0 1-.5-.5v-13a.5.5 0 0 1 1 0v13a.5.5 0 0 1-.5.5ZM10 8a.5.5 0 0 1-.5.5H3.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L3.707 7.5H9.5a.5.5 0 0 1 .5.5Z"/>
+    </svg>
+    <!--          Return-->
+    {{ui.uiElements.at(26)}}
+  </button>
+  <!-- **** end of return button **** -->
+  <p></p>
+
+    <app-image-group [images]="product.images"></app-image-group>
+
+    <p></p>
+
+    <h5>
+       <ng-container *ngFor="let titleDescriptor of product.titleDescriptors">
+       @if (titleDescriptor.language.languageId === currentLanguageService.currentLanguage.languageId) {
+           {{ titleDescriptor.value }}
+       }
+       </ng-container>
+    </h5>
+
+    <p></p>
+
+    <p>
+       <ng-container *ngFor="let briefDescriptor of product.briefDescriptors">
+          @if (briefDescriptor.language.languageId === currentLanguageService.currentLanguage.languageId) {
+          {{ briefDescriptor.value }}
+           }
+       </ng-container>
+    </p>
+
+    <p></p>
+
+    <h5>{{ product.offerPrice | currency:'EUR' }}</h5>
+
+    <p>
+      @if(!cartService.cart.isInterestLetterSent) {
+        @if(product.isAddedToCart) {
+<!--          <span class="text-primary">Added to list</span>-->
+          <span class="text-bg-success">&nbsp;{{ui.uiElements.at(203)}}&nbsp;</span>
+        } @else {
+<!--          <button class="btn btn-primary" (click)="addToWishes()">Wish</button>-->
+          <button class="btn btn-primary" (click)="addToWishes()">{{ui.uiElements.at(202)}}</button>
+        }
+      }
+    </p>
+
+  <div class="">
+          <ng-container *ngFor="let descriptor of product.fullDescriptors">
+            @if (descriptor.language.languageId === currentLanguageService.currentLanguage.languageId) {
+              <div [innerHTML]="descriptor.value | sanitizeHtml"></div>
+            }
+          </ng-container>
+  </div>
+</div>
+}
+
+
+

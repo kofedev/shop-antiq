@@ -1,0 +1,19 @@
+/* On larger screens // 769 */
+@media (min-width: 420px) {
+
+  .margin-main-area {
+    margin-left: 10px;
+    margin-right: 10px;
+  }
+}
+
+/* On screens smaller than 769px (smartphones) */
+@media (max-width: 419px) {
+
+  .margin-main-area {
+    margin-left: 10px;
+    margin-right: 10px;
+  }
+}
+
+

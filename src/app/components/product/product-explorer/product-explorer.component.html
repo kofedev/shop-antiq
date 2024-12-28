@@ -1,0 +1,229 @@
+@if (ready) {
+
+<div class="margin-main-area" style="margin-top: 20px;">
+
+  <!-- **** CATEGORY EXPLORER PLACE -->
+
+    @if (isSearchingMode) {
+
+      <!-- 205 reset searching -->
+      <p>
+        <button
+          class="btn btn-sm btn-outline-primary"
+          (click)="resetSearch()"
+        >&nbsp;{{ui.uiElements.at(205)}}&nbsp;</button>
+      </p>
+
+<!--      <strong>Searching results:</strong>-->
+      <strong>{{ui.uiElements.at(206)}}:</strong>
+
+    }
+
+
+    @if (category && !isSearchingMode) {
+
+      <div class="" style="cursor: pointer;">
+
+        <div class="dropdown">
+          <button style="width: 100%; max-width: 400px;" class="category-border btn btn-outline-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <!-- CURRENT CATEGORY -->
+            @if(category.root) {
+              <!-- Displayed: All items -->
+              {{ui.uiElements.at(204)}}: <strong>{{ui.uiElements.at(197)}}</strong>
+            } @else {
+              <ng-container *ngFor="let descriptor of category.titleDescriptors">
+                @if(descriptor.language.languageId === currentLanguageService.currentLanguage.languageId) {
+                  <!-- Displayed -->
+                  {{ui.uiElements.at(204)}}: <strong>{{descriptor.value}}</strong>
+                }
+              </ng-container>
+            }
+          </button>
+          <ul class="dropdown-menu" style="width: 100%; max-width: 400px;">
+            <!-- BACK -->
+            <li *ngIf="!category.root" (click)="goToCategoryById(category.parent.categoryId)"><span class="dropdown-item">
+                    @if(!category.parent.root) {
+                      <ng-container *ngFor="let descriptor of category.parent.titleDescriptors">
+                        @if(descriptor.language.languageId === currentLanguageService.currentLanguage.languageId) {
+                          <span class="text-secondary">
+                            ... {{descriptor.value}}
+                          </span>
+                        }
+                      </ng-container>
+                    } @else {
+                      <span class="text-secondary">
+                        <!-- *** ...All items-->
+                        ... {{ui.uiElements.at(197)}}
+                      </span>
+                    }
+            </span></li>
+            <!-- DIVIDER -->
+            <li *ngIf="!category.root && category.subcategories.length > 0"><hr class="dropdown-divider"></li>
+            <!-- SUBCATEGORIES -->
+            <li><span class="dropdown-item" *ngFor="let subcategory of category.subcategories">
+              <div *ngIf="subcategory.active" class="" (click)="goToCategoryById(subcategory.categoryId)">
+                <ng-container *ngFor="let descriptor of subcategory.titleDescriptors">
+                  @if(descriptor.language.languageId === currentLanguageService.currentLanguage.languageId) {
+                    <span class="align-self-center">{{descriptor.value}}</span>
+                  }
+                </ng-container>
+              </div>
+            </span></li>
+          </ul>
+        </div>
+
+
+
+      </div>
+    }
+
+
+<!--  <hr>-->
+  <p></p>
+
+  <!-- **** MIN and MAX price -->
+  <!-- min price -->
+  <!-- max price -->
+  <div class="input-group input-group-sm" style="max-width: 400px;">
+    <input (keydown.enter)="minmax()"
+            style="width: 45px;" type="number" class="form-control input-min-price"
+           placeholder="{{ui.uiElements.at(198)}}"
+           aria-label="min" aria-describedby="basic-addon1" [(ngModel)]="min">
+    <input (keydown.enter)="minmax()"
+           style="width: 45px;" type="number" class="form-control"
+           placeholder="{{ui.uiElements.at(199)}}"
+           aria-label="max" aria-describedby="basic-addon2" [(ngModel)]="max">
+    <button class="btn btn-sm btn-outline-secondary enter-button" type="button" (click)="minmax()">
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-return-left" viewBox="0 0 16 16">
+        <path fill-rule="evenodd" d="M14.5 1.5a.5.5 0 0 1 .5.5v4.8a2.5 2.5 0 0 1-2.5 2.5H2.707l3.347 3.346a.5.5 0 0 1-.708.708l-4.2-4.2a.5.5 0 0 1 0-.708l4-4a.5.5 0 1 1 .708.708L2.707 8.3H12.5A1.5 1.5 0 0 0 14 6.8V2a.5.5 0 0 1 .5-.5"/>
+      </svg>
+    </button>
+
+    <button style=" opacity: 80%;"
+              class="btn btn-sm text-primary" type="button"
+              (click)="resetMinMax()">
+        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="bi bi-arrow-repeat" viewBox="0 0 16 16">
+          <path d="M11.534 7h3.932a.25.25 0 0 1 .192.41l-1.966 2.36a.25.25 0 0 1-.384 0l-1.966-2.36a.25.25 0 0 1 .192-.41zm-11 2h3.932a.25.25 0 0 0 .192-.41L2.692 6.23a.25.25 0 0 0-.384 0L.342 8.59A.25.25 0 0 0 .534 9z"/>
+          <path fill-rule="evenodd" d="M8 3c-1.552 0-2.94.707-3.857 1.818a.5.5 0 1 1-.771-.636A6.002 6.002 0 0 1 13.917 7H12.9A5.002 5.002 0 0 0 8 3zM3.1 9a5.002 5.002 0 0 0 8.757 2.182.5.5 0 1 1 .771.636A6.002 6.002 0 0 1 2.083 9H3.1z"/>
+        </svg>
+    </button>
+
+
+
+
+
+    <!-- **** items per page **** -->
+    &nbsp;&nbsp;&nbsp;
+    <span class="nav-item dropdown align-self-center">
+      <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false">
+
+        <!--        <small>per page</small>-->
+        <small class="text-secondary">{{ui.uiElements.at(188)}}</small>
+
+      </a>
+      <ul class="dropdown-menu" style="cursor: pointer">
+        <li><a class="dropdown-item" (click)="setQuantityPerPageAndCallExplorer(5)">5</a></li>
+        <li><a class="dropdown-item" (click)="setQuantityPerPageAndCallExplorer(10)">10</a></li>
+        <li><a class="dropdown-item" (click)="setQuantityPerPageAndCallExplorer(25)">25</a></li>
+        <li><a class="dropdown-item" (click)="setQuantityPerPageAndCallExplorer(50)">50</a></li>
+        <li><a class="dropdown-item" (click)="setQuantityPerPageAndCallExplorer(0)">All</a></li>
+      </ul>
+    </span>
+
+    <!-- **** sort **** -->
+    &nbsp;&nbsp;&nbsp;
+    <span class="nav-item dropdown align-self-center">
+      <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false">
+
+        <!--        <small>sort</small>-->
+        <small class="text-secondary">{{ui.uiElements.at(189)}}</small>
+
+      </a>
+      <ul class="dropdown-menu" style="cursor: pointer">
+
+<!--        <li><a class="dropdown-item" (click)="sortByPrice('asc')">cheaper first</a></li>-->
+        <li><a class="dropdown-item" (click)="sortByPrice('asc')">{{ui.uiElements.at(190)}}</a></li>
+
+<!--        <li><a class="dropdown-item" (click)="sortByPrice('desc')">expensive first</a></li>-->
+        <li><a class="dropdown-item" (click)="sortByPrice('desc')">{{ui.uiElements.at(191)}}</a></li>
+
+      </ul>
+    </span>
+
+  </div>
+
+  <p></p>
+
+<!--  <hr>-->
+  <!-- ================== -->
+  <!-- *** MAIN LIST *** -->
+  <!-- ================== -->
+
+<!--  <div class="row  row-cols-1 row-cols-sm-1 row-cols-md-1 row-cols-lg-1 row-cols-xl-1 gap-2 column-gap-5">-->
+<!--    <div *ngFor="let product of products">-->
+<!--        <app-product-small [product]="product"></app-product-small>-->
+<!--    </div>-->
+<!--  </div>-->
+
+  <div class="row" style="cursor: pointer;">
+    <div *ngFor="let product of products" style="margin-bottom: 10px;">
+      <app-product-small [product]="product"></app-product-small>
+    </div>
+  </div>
+
+  <!-- ================== -->
+  <!-- *** PAGINATION *** -->
+  <!-- ================== -->
+
+<!--  <div class="d-flex" style="margin-top: 20px;">-->
+
+    <nav style="margin-top: 20px;" *ngIf="totalPages > 1">
+
+      <ul class="pagination">
+        <li class="page-item" [class.disabled]="currentPage === 1">
+          <a class="page-link" (click)="navigateToPage(currentPage - 1)" aria-label="Previous">
+            <span *ngIf="displayWidth > 419" aria-hidden="true">&laquo;</span>
+
+<!--            <span *ngIf="displayWidth <= 419" aria-hidden="true">&laquo; prev page</span>-->
+            <span *ngIf="displayWidth <= 419" aria-hidden="true">&laquo; {{ui.uiElements.at(192)}}</span>
+
+          </a>
+        </li>
+
+        @if(displayWidth > 419) {
+          <li class="page-item pagination-page-point" *ngFor="let page of getPages()" [class.active]="page === currentPage">
+            <a style="cursor: pointer;" class="page-link" (click)="navigateToPage(page)">{{ page }}</a>
+          </li>
+        }
+
+        <li class="page-item" [class.disabled]="currentPage === totalPages">
+          <a class="page-link" (click)="navigateToPage(currentPage + 1)" aria-label="Next">
+            <span *ngIf="displayWidth > 419" aria-hidden="true">&raquo;</span>
+
+<!--            <span *ngIf="displayWidth <= 419" aria-hidden="true">next page &raquo;</span>-->
+            <span *ngIf="displayWidth <= 419" aria-hidden="true">{{ui.uiElements.at(193)}} &raquo;</span>
+
+          </a>
+        </li>
+
+      </ul>
+    </nav>
+
+</div>
+
+
+} @else {
+  <!-- SPINNER "LOADING" -->
+  <div class="d-flex justify-content-center align-items-center text-primary" style="height: 100vh;">
+    <div class="text-center">
+      <div class="d-flex align-items-center">
+<!--        Loading...&nbsp;&nbsp;-->
+        {{ui.uiElements.at(194)}}...&nbsp;&nbsp;
+        <div class="spinner-border ml-auto" role="status" aria-hidden="true"></div>
+      </div>
+    </div>
+  </div>
+}
+
+
+

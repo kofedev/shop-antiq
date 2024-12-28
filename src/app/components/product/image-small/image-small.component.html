@@ -1,0 +1,16 @@
+@if (images) {
+<!--  <img src="{{ images | imageByMain }}" class="card-img-top"  loading="lazy" alt="...">-->
+<!--  <img src="{{ images | imageByMain }}" class="card-img-top" width="320" height="180" loading="lazy" alt="...">-->
+
+  @if(displayWidth > 419) {
+<!--    <img src="{{ images | imageByMain }}" class="card-img-top" width="320" height="180" loading="lazy">-->
+    <img src="{{ images | imageByMain }}" class="card-img-top" loading="lazy">
+  } @else {
+<!--    <img src="{{ images | imageByMain }}" width="320" height="180" loading="lazy">-->
+    <img src="{{ images | imageByMain }}" class="card-img-top" loading="lazy">
+  }
+
+<!--  <img src="{{ images | imageByMain }}" class="card-img-top" alt="...">-->
+}
+
+

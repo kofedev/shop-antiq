@@ -1,0 +1,28 @@
+/* On larger screens // 769 */
+@media (min-width: 420px) {
+
+  .small-product-card-main {
+    width: fit-content;
+
+  }
+  //
+  .small-product-card-body {
+    max-width: 700px;
+    word-wrap: break-word;
+    overflow: hidden;
+  }
+}
+
+/* On screens smaller than 769px (smartphones) */
+@media (max-width: 419px) {
+
+  .small-product-card-main {
+    //width: fit-content;
+
+  }
+  //
+  .small-product-card-body {
+    word-wrap: break-word;
+    overflow: hidden;
+  }
+}
